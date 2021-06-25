@@ -1,5 +1,6 @@
 # BapApiSqlite
-
+## Team
+Brendan Nolan
 ## Overview
 
 This is a simple Visual Studio API Project for the Belfast Met Microsoft Academy.
