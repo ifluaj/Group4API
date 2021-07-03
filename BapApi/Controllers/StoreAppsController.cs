@@ -61,6 +61,21 @@ namespace BapApi.Controllers
             
             return storeTopTen; 
         }
+        // GET: api/StoreApps/MostPopular
+        // Get the top 100 apps from the database, aftering ordering by rating and by no. of ratings.
+        [HttpGet("MostPopular")]
+        public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreAnalysis()
+        {
+
+            var storeAnalysis = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(p => p.People).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
+
+            if (storeAnalysis == null)
+            {
+                return NotFound();
+            }
+
+            return storeAnalysis;
+        }
 
         // POST: api/StoreApps
         // Add a new record to the database
