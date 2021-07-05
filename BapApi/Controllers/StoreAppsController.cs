@@ -77,6 +77,52 @@ namespace BapApi.Controllers
             return storeAnalysis;
         }
 
+        // GET: api/StoreApps/MostRated
+        // Get the 100 most rated apps from the database, ordering by no. of ratings.
+        [HttpGet("MostRated")]
+        public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreRated()
+        {
+
+
+
+            var storeRated = await _context.StoreApps.OrderByDescending(r => r.People).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
+
+
+
+            if (storeRated == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return storeRated;
+        }
+
+
+
+        // GET: api/StoreApps/New
+        // Get the top 100 new apps from the database, aftering ordering by rating and by date added.
+        [HttpGet("New")]
+        public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreNew()
+        {
+
+
+
+            var storeNew = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(d => d.Date).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
+
+
+
+            if (storeNew == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return storeNew;
+        }
+
         // POST: api/StoreApps
         // Add a new record to the database
 
