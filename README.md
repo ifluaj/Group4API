@@ -3,6 +3,7 @@
 Brendan Nolan
 Bernadette Henry
 Peter Amos
+Chloe Hales
 ## Overview
 
 This is a simple Visual Studio API Project for the Belfast Met Microsoft Academy.

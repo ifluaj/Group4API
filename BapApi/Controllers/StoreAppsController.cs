@@ -51,7 +51,6 @@ namespace BapApi.Controllers
         [HttpGet("FirstTen")]
         public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreTopTen()
         {
-
             var storeTopTen = await _context.StoreApps.Select(x => StoreAppToDTO(x)).Take(10).ToListAsync();
 
             if (storeTopTen == null)
@@ -61,12 +60,12 @@ namespace BapApi.Controllers
             
             return storeTopTen; 
         }
+
         // GET: api/StoreApps/MostPopular
         // Get the top 100 apps from the database, aftering ordering by rating and by no. of ratings.
         [HttpGet("MostPopular")]
         public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreAnalysis()
         {
-
             var storeAnalysis = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(p => p.People).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
 
             if (storeAnalysis == null)
@@ -82,43 +81,27 @@ namespace BapApi.Controllers
         [HttpGet("MostRated")]
         public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreRated()
         {
-
-
-
             var storeRated = await _context.StoreApps.OrderByDescending(r => r.People).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
-
-
 
             if (storeRated == null)
             {
                 return NotFound();
             }
 
-
-
             return storeRated;
         }
-
-
 
         // GET: api/StoreApps/New
         // Get the top 100 new apps from the database, aftering ordering by rating and by date added.
         [HttpGet("New")]
         public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreNew()
         {
-
-
-
             var storeNew = await _context.StoreApps.OrderByDescending(d => d.Date).ThenByDescending(r => r.Rating).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
-
-
 
             if (storeNew == null)
             {
                 return NotFound();
             }
-
-
 
             return storeNew;
         }
@@ -128,7 +111,6 @@ namespace BapApi.Controllers
         [HttpGet("Top3Apps")]
         public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreTop3Apps()
         {
-
             var storeTop3Apps = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(p => p.People).Select(x => StoreAppToDTO(x)).Take(3).ToListAsync();
 
             if (storeTop3Apps == null)
@@ -138,12 +120,6 @@ namespace BapApi.Controllers
 
             return storeTop3Apps;
         }
-
-        // POST: api/StoreApps
-        // Add a new record to the database
-
-        // Delete: api/StoreApps/1
-        // Delete a single row from the database by Id
 
         // DTO helper method. "Production apps typically limit the data that's input and returned using a subset of the model"
         private static StoreAppDTO StoreAppToDTO(StoreApp storeApp) =>
@@ -158,5 +134,4 @@ namespace BapApi.Controllers
                 Price = storeApp.Price
             };
     }
-    //This is Chloes test comment
 }

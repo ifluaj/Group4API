@@ -32,6 +32,7 @@ namespace BapApi
             }
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthorization();
