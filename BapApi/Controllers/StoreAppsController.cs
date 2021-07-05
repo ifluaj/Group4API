@@ -123,6 +123,22 @@ namespace BapApi.Controllers
             return storeNew;
         }
 
+        // GET: api/StoreApps/Top3Apps
+        // Get the 3 most rated apps from the database, ordering by ratings and then no. of ratings.
+        [HttpGet("Top3Apps")]
+        public async Task<ActionResult<IEnumerable<StoreAppDTO>>> GetStoreTop3Apps()
+        {
+
+            var storeTop3Apps = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(p => p.People).Select(x => StoreAppToDTO(x)).Take(3).ToListAsync();
+
+            if (storeTop3Apps == null)
+            {
+                return NotFound();
+            }
+
+            return storeTop3Apps;
+        }
+
         // POST: api/StoreApps
         // Add a new record to the database
 
