@@ -109,7 +109,7 @@ namespace BapApi.Controllers
 
 
 
-            var storeNew = await _context.StoreApps.OrderByDescending(r => r.Rating).ThenByDescending(d => d.Date).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
+            var storeNew = await _context.StoreApps.OrderByDescending(d => d.Date).ThenByDescending(r => r.Rating).Select(x => StoreAppToDTO(x)).Take(100).ToListAsync();
 
 
 
